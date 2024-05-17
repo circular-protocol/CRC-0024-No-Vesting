@@ -27,7 +27,7 @@ var CRC_Contract = {
          _Symbol : "MTK",          // Asset Tiker.It must match the one in the settings 
           _owner : "Owner wallet address", // Asset Owner Address
          _OnSale : true,           // Token on sale flag
-           _Rate : 100,            // $CIRX exchange rate
+           _Rate : 100,            // $CIRX or other selected Asset exchange rate
   
 /** 
  * Contract Constructor. It will be executed only once, when the contract is deployed.
@@ -49,6 +49,18 @@ var CRC_Contract = {
     },
   
 
+
+ /** 
+ * Returns the Contract Interface Type.
+ *
+ */  
+    __GetContractInterface: function () {
+      
+        println('{"ContractInterface" : "CRC-0024"}');
+      
+        return 'CRC-0024';
+    }, 
+    
 /** 
  * Returns the total token supply.
  *
@@ -158,7 +170,7 @@ __GetTokenSymbol: function () {
  */   
     Buy: function () {
         // If are sent a positive amoutn of coins
-        if (msg.Amount > 0) {
+        if (msg.Amount > 0 && msg.Asset=='CIRX') {
           
           // Calculates the right amount of tokens
           var amount = msg.Amount * this._Rate;
